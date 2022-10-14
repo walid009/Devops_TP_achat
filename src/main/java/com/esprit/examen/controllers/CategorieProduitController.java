@@ -1,6 +1,13 @@
 package com.esprit.examen.controllers;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.esprit.examen.entities.CategorieProduit;
+import com.esprit.examen.entities.Produit;
 import com.esprit.examen.services.ICategorieProduitService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.annotations.Api;
 
 @RestController
@@ -40,10 +50,15 @@ public class CategorieProduitController {
 	}
 
 	// http://localhost:8089/SpringMVC/categorieProduit/add-categorieProduit
-	@PostMapping("/add-categorieProduit")
+	@PostMapping("/add-categorieProduit/{categorieProduit-code}/{categorieProduit-libelle}")
 	@ResponseBody
-	public CategorieProduit addCategorieProduit(@RequestBody CategorieProduit cp) {
-		CategorieProduit categorieProduit = categorieProduitService.addCategorieProduit(cp);
+	public CategorieProduit addCategorieProduit(@PathVariable("categorieProduit-code") String code,
+			@PathVariable("categorieProduit-libelle") String libelle) {
+		CategorieProduit cat = new CategorieProduit();
+		cat.setCodeCategorie(code);
+		cat.setLibelleCategorie(libelle);
+		categorieProduitService.addCategorieProduit(cat);
+		CategorieProduit categorieProduit = categorieProduitService.addCategorieProduit(cat);
 		return categorieProduit;
 	}
 
