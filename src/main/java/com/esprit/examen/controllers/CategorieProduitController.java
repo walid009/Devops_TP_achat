@@ -25,6 +25,8 @@ import com.esprit.examen.services.ICategorieProduitService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.Api;
+import lombok.Getter;
+import lombok.Setter;
 
 @RestController
 @Api(tags = "Gestion des categories Produit")
@@ -50,13 +52,12 @@ public class CategorieProduitController {
 	}
 
 	// http://localhost:8089/SpringMVC/categorieProduit/add-categorieProduit
-	@PostMapping("/add-categorieProduit/{categorieProduit-code}/{categorieProduit-libelle}")
+	@PostMapping("/add-categorieProduit")
 	@ResponseBody
-	public CategorieProduit addCategorieProduit(@PathVariable("categorieProduit-code") String code,
-			@PathVariable("categorieProduit-libelle") String libelle) {
+	public CategorieProduit addCategorieProduit(@RequestBody CategorieWalidModel  categorieWalidModel ) {
 		CategorieProduit cat = new CategorieProduit();
-		cat.setCodeCategorie(code);
-		cat.setLibelleCategorie(libelle);
+		cat.setCodeCategorie(categorieWalidModel.getCodeCategorie());
+		cat.setLibelleCategorie(categorieWalidModel.getLibelleCategorie());
 		categorieProduitService.addCategorieProduit(cat);
 		CategorieProduit categorieProduit = categorieProduitService.addCategorieProduit(cat);
 		return categorieProduit;
@@ -72,9 +73,25 @@ public class CategorieProduitController {
 	// http://localhost:8089/SpringMVC/categorieProduit/modify-categorieProduit
 	@PutMapping("/modify-categorieProduit")
 	@ResponseBody
-	public CategorieProduit modifyCategorieProduit(@RequestBody CategorieProduit categorieProduit) {
-		return categorieProduitService.updateCategorieProduit(categorieProduit);
+	public CategorieProduit modifyCategorieProduit(@RequestBody CategorieWalidModel  categorieWalidModel) {
+		return categorieProduitService.updateCategorieProduit(new CategorieProduit(categorieWalidModel.getIdCategorieProduit(),
+				categorieWalidModel.getCodeCategorie(), categorieWalidModel.getLibelleCategorie(), categorieWalidModel.getProduits()));
 	}
 
 	
+}
+
+@Getter
+@Setter
+class CategorieWalidModel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long idCategorieProduit;
+	private String codeCategorie;
+	private String libelleCategorie;
+	@OneToMany(mappedBy = "categorieProduit")
+	@JsonIgnore
+	private Set<Produit> produits;
 }
