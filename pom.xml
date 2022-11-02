@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.esprit.examen</groupId>
 	<artifactId>tpAchatProject</artifactId>
-	<version>1.0</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>tpAchatProject</name>
 	<description>tpAchatProject</description>
 	<properties>
@@ -74,11 +74,24 @@
 
 	<build>
 		<plugins>
+		 <plugin>
+            <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-maven-plugin</artifactId>
+          </plugin>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-resources-plugin</artifactId>
+    <version>3.1.0</version>
+</plugin>  
 		</plugins>
 	</build>
+	
+	<distributionManagement>
+	  <repository>
+	     <id>deploymentRepo</id>
+	     <name>Nexus Repo TPAchat</name>
+	     <url>http://172.10.0.140:8081/repository/maven-snapshots/</url>
+	  </repository>
+	</distributionManagement>
 
 </project>
