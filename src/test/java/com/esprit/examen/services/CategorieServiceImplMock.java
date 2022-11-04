@@ -38,7 +38,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @Slf4j
 @ExtendWith(MockitoExtension.class)
 public class CategorieServiceImplMock {
