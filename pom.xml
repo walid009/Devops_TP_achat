@@ -93,7 +93,6 @@
 <include>**/*Test.java</include>
 <include>**/*Mock.java</include>
 </includes>
-<testFailureIgnore>true</testFailureIgnore>
 </configuration>
 </plugin>
 
