@@ -77,8 +77,6 @@ public class CartegorieServiceImplTest {
 		CategorieProduit cat = new CategorieProduit();
 		cat.setCodeCategorie("CAT2");
 		cat.setLibelleCategorie("categorie");
-		//assertNotNull(cat.getCodeCategorie());
-		//assertNotNull(cat.getLibelleCategorie());
 		categorieProduitService.addCategorieProduit(cat);
 		categorieProduitService.deleteCategorieProduit(cat.getIdCategorieProduit());
 		log.info("categorie supprimer avec success");

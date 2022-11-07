@@ -1,8 +1,12 @@
 package com.esprit.examen.controllers;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.springframework.beans.factory.annotation.Autowired;
