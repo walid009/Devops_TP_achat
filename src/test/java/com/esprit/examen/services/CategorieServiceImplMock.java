@@ -87,6 +87,8 @@ public class CategorieServiceImplMock {
 	@Order(4)
 	public void deleteCategorierTest() {
 		CategorieProduit cat = new CategorieProduit("cat4", "categorie 4");
+		assertNotNull(cat.getCodeCategorie());
+		assertNotNull(cat.getLibelleCategorie());
 		categorieProduitServiceImpl.deleteCategorieProduit(cat.getIdCategorieProduit());
 		log.info("categorie supprimer avec success");
 	}

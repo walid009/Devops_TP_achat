@@ -38,9 +38,9 @@ public class CartegorieServiceImplTest {
 		CategorieProduit cat = new CategorieProduit();
 		cat.setCodeCategorie("CAT1");
 		cat.setLibelleCategorie("categorie 1");
-		CategorieProduit x = categorieProduitService.addCategorieProduit(cat);
 		assertNotNull(x.getCodeCategorie());
 		assertNotNull(x.getLibelleCategorie());
+		CategorieProduit x = categorieProduitService.addCategorieProduit(cat);
 		log.info("categorie ajouter avec success");
 	}
 	
@@ -77,6 +77,8 @@ public class CartegorieServiceImplTest {
 		CategorieProduit cat = new CategorieProduit();
 		cat.setCodeCategorie("CAT2");
 		cat.setLibelleCategorie("categorie");
+		assertNotNull(cat.getCodeCategorie());
+		assertNotNull(cat.getLibelleCategorie());
 		categorieProduitService.addCategorieProduit(cat);
 		categorieProduitService.deleteCategorieProduit(cat.getIdCategorieProduit());
 		log.info("categorie supprimer avec success");
