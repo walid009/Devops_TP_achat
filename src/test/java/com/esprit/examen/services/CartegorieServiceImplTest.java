@@ -96,6 +96,7 @@ public class CartegorieServiceImplTest {
 				cat = listCategorie.get(x);
 				find=true;
 			}
+			x++;
 		}
 		assertNotNull(cat.getCodeCategorie());
 		assertNotNull(cat.getLibelleCategorie());
