@@ -29,7 +29,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -88,6 +87,8 @@ public class CategorieServiceImplMock {
 	@Order(4)
 	public void deleteCategorierTest() {
 		CategorieProduit cat = new CategorieProduit("cat4", "categorie 4");
+		assertNotNull(cat.getCodeCategorie());
+		assertNotNull(cat.getLibelleCategorie());
 		categorieProduitServiceImpl.deleteCategorieProduit(cat.getIdCategorieProduit());
 		log.info("categorie supprimer avec success");
 	}
