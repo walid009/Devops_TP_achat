@@ -54,11 +54,26 @@ public class CategorieServiceImplMock {
 		CategorieProduit cat = new CategorieProduit("cat1", "categorie 1");
 		Mockito.when(categorieProduitRepository.save(cat)).thenReturn(cat);
 		assertEquals(cat, categorieProduitServiceImpl.addCategorieProduit(cat));
+		log.info("categorie ajouter avec success");
 	}
 	
 	@Test
 	@Order(2)
-	public void getUsersTest() {
+	public void updateCategorieTest() {
+		CategorieProduit cat = new CategorieProduit("cat2", "categorie 2");
+		Mockito.when(categorieProduitRepository.save(cat)).thenReturn(cat);
+		assertEquals(cat, categorieProduitServiceImpl.addCategorieProduit(cat));
+		log.info("categorie ajouter avec success");
+		cat.setCodeCategorie("CAT5");
+		cat.setLibelleCategorie("categorie 5");
+		Mockito.when(categorieProduitRepository.save(cat)).thenReturn(cat);
+		assertEquals(cat, categorieProduitServiceImpl.updateCategorieProduit(cat));
+		log.info("categorie mdofier avec success");
+	}
+	
+	@Test
+	@Order(3)
+	public void getAllCategorieTest() {
 		Mockito.when(categorieProduitRepository.findAll()).thenReturn(Stream
 				.of(new CategorieProduit("cat2", "categorie 2"), new CategorieProduit("cat2", "categorie 3")).collect(Collectors.toList()));
 		assertEquals(2, categorieProduitServiceImpl.retrieveAllCategorieProduits().size());
@@ -70,10 +85,24 @@ public class CategorieServiceImplMock {
 	}
 
 	@Test
-	@Order(3)
-	public void deleteUserTest() {
+	@Order(4)
+	public void deleteCategorierTest() {
 		CategorieProduit cat = new CategorieProduit("cat4", "categorie 4");
 		categorieProduitServiceImpl.deleteCategorieProduit(cat.getIdCategorieProduit());
 		log.info("categorie supprimer avec success");
+	}
+	
+	@Test
+	@Order(5)
+	public void deleteAllCategorierTest() {
+		Mockito.when(categorieProduitRepository.findAll()).thenReturn(Stream
+				.of(new CategorieProduit("cat2", "categorie 2"), new CategorieProduit("cat2", "categorie 3")).collect(Collectors.toList()));
+		assertEquals(2, categorieProduitServiceImpl.retrieveAllCategorieProduits().size());
+		List<CategorieProduit> listCategorie = categorieProduitServiceImpl.retrieveAllCategorieProduits();
+		log.info("==>size:"+listCategorie.size());
+		for(int i=0;i<listCategorie.size();i++){
+			categorieProduitServiceImpl.deleteCategorieProduit(listCategorie.get(i).getIdCategorieProduit());;
+			log.info("==> categorie "+listCategorie.get(i).getLibelleCategorie()+" deleted successfulyy ");
+		}
 	}
 }
