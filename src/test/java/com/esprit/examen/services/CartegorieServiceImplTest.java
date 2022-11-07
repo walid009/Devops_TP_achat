@@ -38,8 +38,8 @@ public class CartegorieServiceImplTest {
 		CategorieProduit cat = new CategorieProduit();
 		cat.setCodeCategorie("CAT1");
 		cat.setLibelleCategorie("categorie 1");
-		assertNotNull(x.getCodeCategorie());
-		assertNotNull(x.getLibelleCategorie());
+		assertNotNull(cat.getCodeCategorie());
+		assertNotNull(cat.getLibelleCategorie());
 		CategorieProduit x = categorieProduitService.addCategorieProduit(cat);
 		log.info("categorie ajouter avec success");
 	}
