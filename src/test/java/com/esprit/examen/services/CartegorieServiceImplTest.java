@@ -46,27 +46,6 @@ public class CartegorieServiceImplTest {
 	
 	@Test
 	@Order(2)
-	public void testRetrieveCategorieByCode() throws ParseException {
-		String codeCategorieTofind="CAT1";
-		List<CategorieProduit> listCategorie = categorieProduitService.retrieveAllCategorieProduits();
-		Assertions.assertNotEquals(0, listCategorie.size());
-		int x=0;
-		boolean find = false;
-		CategorieProduit cat=new CategorieProduit();
-		while(x<listCategorie.size() && !find){
-			if(listCategorie.get(x).getCodeCategorie().equals(codeCategorieTofind)){
-				cat = listCategorie.get(x);
-				find=true;
-			}
-			x++;
-		}
-		assertNotNull(cat.getCodeCategorie());
-		assertNotNull(cat.getLibelleCategorie());
-		log.info("categorie find Code:"+cat.getCodeCategorie()+" et Libelle:"+cat.getLibelleCategorie());
-	}
-	
-	@Test
-	@Order(3)
 	public void testModifierCategorie() throws ParseException {
 		CategorieProduit cat = new CategorieProduit();
 		cat.setCodeCategorie("CAT2");
@@ -82,7 +61,7 @@ public class CartegorieServiceImplTest {
 	}
 	
 	@Test
-	@Order(4)
+	@Order(3)
 	public void testRetrieveAllCategorie() throws ParseException {
 		List<CategorieProduit> listCategorie = categorieProduitService.retrieveAllCategorieProduits();
 		Assertions.assertNotEquals(0, listCategorie.size());
@@ -93,7 +72,7 @@ public class CartegorieServiceImplTest {
 	}
 	
 	@Test
-	@Order(5)
+	@Order(4)
 	public void testDeleteCategorie() throws ParseException {
 		CategorieProduit cat = new CategorieProduit();
 		cat.setCodeCategorie("CAT2");
@@ -106,7 +85,7 @@ public class CartegorieServiceImplTest {
 	
 	
 	@Test
-	@Order(6)
+	@Order(5)
 	public void testDeleteAllCategorie() throws ParseException {
 		List<CategorieProduit> listCategorie = categorieProduitService.retrieveAllCategorieProduits();
 		Assertions.assertNotEquals(0, listCategorie.size());
