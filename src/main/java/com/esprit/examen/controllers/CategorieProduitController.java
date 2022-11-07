@@ -36,7 +36,8 @@ public class CategorieProduitController {
 	@GetMapping("/retrieve-all-categorieProduit")
 	@ResponseBody
 	public List<CategorieProduit> getCategorieProduit() {
-		return categorieProduitService.retrieveAllCategorieProduits();
+		List<CategorieProduit> list = categorieProduitService.retrieveAllCategorieProduits();
+		return list;
 	}
 
 	// http://localhost:8089/SpringMVC/categorieProduit/retrieve-categorieProduit/8
@@ -54,9 +55,11 @@ public class CategorieProduitController {
 		cat.setCodeCategorie(categorieWalidModel.getCodeCategorie());
 		cat.setLibelleCategorie(categorieWalidModel.getLibelleCategorie());
 		categorieProduitService.addCategorieProduit(cat);
-		return categorieProduitService.addCategorieProduit(cat);
+		CategorieProduit categorieProduit = categorieProduitService.addCategorieProduit(cat);
+		return categorieProduit;
 	}
 
+	// http://localhost:8089/SpringMVC/categorieProduit/remove-categorieProduit/{categorieProduit-id}
 	@DeleteMapping("/remove-categorieProduit/{categorieProduit-id}")
 	@ResponseBody
 	public void removeCategorieProduit(@PathVariable("categorieProduit-id") Long categorieProduitId) {
