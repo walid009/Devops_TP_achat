@@ -46,44 +46,6 @@ public class CartegorieServiceImplTest {
 	
 	@Test
 	@Order(2)
-	public void testModifierCategorie() throws ParseException {
-		CategorieProduit cat = new CategorieProduit();
-		cat.setCodeCategorie("CAT2");
-		cat.setLibelleCategorie("categorie 2");
-		categorieProduitService.addCategorieProduit(cat);
-		log.info("categorie ajouter avec success");
-		cat.setCodeCategorie("CAT5");
-		cat.setLibelleCategorie("categorie 5");
-		CategorieProduit x = categorieProduitService.updateCategorieProduit(cat);
-		assertNotNull(x.getCodeCategorie());
-		assertNotNull(x.getLibelleCategorie());
-		log.info("categorie modifier avec success");
-	}
-	
-	@Test
-	@Order(3)
-	public void testRetrieveAllCategorie() throws ParseException {
-		List<CategorieProduit> listCategorie = categorieProduitService.retrieveAllCategorieProduits();
-		Assertions.assertNotEquals(0, listCategorie.size());
-		log.info("Nombre categorie: " + listCategorie.size()+" \n");
-		for(int i=0;i<listCategorie.size();i++){
-			log.info("==>"+listCategorie.get(i).getLibelleCategorie());
-		}
-	}
-	
-	@Test
-	@Order(4)
-	public void testDeleteCategorie() throws ParseException {
-		CategorieProduit cat = new CategorieProduit();
-		cat.setCodeCategorie("CAT2");
-		cat.setLibelleCategorie("categorie");
-		categorieProduitService.addCategorieProduit(cat);
-		categorieProduitService.deleteCategorieProduit(cat.getIdCategorieProduit());
-		log.info("categorie supprimer avec success");
-	}
-	
-	@Test
-	@Order(5)
 	public void testRetrieveCategorieByCode() throws ParseException {
 		String codeCategorieTofind="CAT1";
 		List<CategorieProduit> listCategorie = categorieProduitService.retrieveAllCategorieProduits();
@@ -102,6 +64,46 @@ public class CartegorieServiceImplTest {
 		assertNotNull(cat.getLibelleCategorie());
 		log.info("categorie find Code:"+cat.getCodeCategorie()+" et Libelle:"+cat.getLibelleCategorie());
 	}
+	
+	@Test
+	@Order(3)
+	public void testModifierCategorie() throws ParseException {
+		CategorieProduit cat = new CategorieProduit();
+		cat.setCodeCategorie("CAT2");
+		cat.setLibelleCategorie("categorie 2");
+		categorieProduitService.addCategorieProduit(cat);
+		log.info("categorie ajouter avec success");
+		cat.setCodeCategorie("CAT5");
+		cat.setLibelleCategorie("categorie 5");
+		CategorieProduit x = categorieProduitService.updateCategorieProduit(cat);
+		assertNotNull(x.getCodeCategorie());
+		assertNotNull(x.getLibelleCategorie());
+		log.info("categorie modifier avec success");
+	}
+	
+	@Test
+	@Order(4)
+	public void testRetrieveAllCategorie() throws ParseException {
+		List<CategorieProduit> listCategorie = categorieProduitService.retrieveAllCategorieProduits();
+		Assertions.assertNotEquals(0, listCategorie.size());
+		log.info("Nombre categorie: " + listCategorie.size()+" \n");
+		for(int i=0;i<listCategorie.size();i++){
+			log.info("==>"+listCategorie.get(i).getLibelleCategorie());
+		}
+	}
+	
+	@Test
+	@Order(5)
+	public void testDeleteCategorie() throws ParseException {
+		CategorieProduit cat = new CategorieProduit();
+		cat.setCodeCategorie("CAT2");
+		cat.setLibelleCategorie("categorie");
+		categorieProduitService.addCategorieProduit(cat);
+		categorieProduitService.deleteCategorieProduit(cat.getIdCategorieProduit());
+		log.info("categorie supprimer avec success");
+	}
+	
+	
 	
 	@Test
 	@Order(6)
