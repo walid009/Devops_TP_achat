@@ -82,5 +82,24 @@ public class CartegorieServiceImplTest {
 		log.info("categorie supprimer avec success");
 	}
 	
+	@Test
+	@Order(5)
+	public void testRetrieveCategorieByCode() throws ParseException {
+		String codeCategorieTofind="CAT1";
+		List<CategorieProduit> listCategorie = categorieProduitService.retrieveAllCategorieProduits();
+		Assertions.assertNotEquals(0, listCategorie.size());
+		int x=0;
+		boolean find = false;
+		CategorieProduit cat=new CategorieProduit();
+		while(x<listCategorie.size() && !find){
+			if(listCategorie.get(x).getCodeCategorie().equals(codeCategorieTofind)){
+				cat = listCategorie.get(x);
+				find=true;
+			}
+		}
+		assertNotNull(cat.getCodeCategorie());
+		assertNotNull(cat.getLibelleCategorie());
+		log.info("categorie find Code:"+cat.getCodeCategorie()+" et Libelle:"+cat.getLibelleCategorie());
+	}
 	
 }
