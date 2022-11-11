@@ -1,5 +1,7 @@
 package com.esprit.examen.services;
 
+import static org.junit.Assert.assertNull;
+
 import java.text.ParseException;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class OperateurServiceImplTest {
 		op.setPrenom("brahem");
 		op.setPassword("1234");
 		
-		operateurService.addOperateur(op);
+		assertNull(operateurService.addOperateur(op)); // JUnit assertion
 		log.info("operateur ajouter avec success");
 	}
 	
@@ -45,7 +47,7 @@ public class OperateurServiceImplTest {
 		op.setNom("med wajdi");
 		op.setPrenom("BRAHEM");
 		op.setPassword("123456789");
-		operateurService.updateOperateur(op);
+		assertNull(operateurService.updateOperateur(op)); // JUnit assertion
 		log.info("operateur modifier avec success");
 	}
 	
@@ -57,9 +59,9 @@ public class OperateurServiceImplTest {
 		op.setPrenom("brahem");
 		op.setPassword("1234");
 		
-		operateurService.addOperateur(op);
+		assertNull(operateurService.addOperateur(op));
 		log.info("operateur ajouter avec success");
-		operateurService.deleteOperateur(op.getIdOperateur());
+		operateurService.deleteOperateur(op.getIdOperateur()); // JUnit assertion
 		log.info("operateur supprimer avec success");
 	}
 	
