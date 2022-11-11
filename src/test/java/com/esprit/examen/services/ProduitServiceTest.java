@@ -67,5 +67,12 @@ public class ProduitServiceTest {
         System.out.println("Retrieved All Products With success");
     }
 
-    
+    //Ajouter un produit
+    @Test
+    public void addProduitTest() {
+        when(pr.save(p1)).thenReturn(p1);
+        assertNotNull(p1);
+        assertEquals(p1, ps.addProduit(p1));
+        System.out.println("Added Product With success");
+    }
 }
