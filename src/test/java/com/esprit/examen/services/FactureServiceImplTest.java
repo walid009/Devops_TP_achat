@@ -1,77 +1,55 @@
 package com.esprit.examen.services;
 
-import java.text.ParseException;
-import java.util.List;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.esprit.examen.entities.Facture;
-
-import lombok.extern.slf4j.Slf4j;
+import com.esprit.examen.repositories.FactureRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Slf4j
 public class FactureServiceImplTest {
-
-	@Autowired
-	IFactureService factureService;
 	
+	@Mock
+	FactureRepository factureRepository;
+	
+	@InjectMocks
+	FactureServiceImpl factureService;
+	
+	private Facture facture1 = new Facture(48L, 210L, true);
+	private Facture facture2 = new Facture(2L, 480L, false);
 	@Test
-	public void testAddOperateur() throws ParseException {
-		Facture ft = new Facture();
-		ft.setMontantFacture(20);
-		ft.setMontantRemise(2);
-		ft.setArchivee(false);
-	
-		
-		factureService.addFacture(ft);
-		log.info("facture ajouter avec success");
+	public void ajoutFactureTest() {
+		when(factureRepository.save(facture1)).thenReturn(facture1);
+		assertNotNull(facture1);
+		Facture persistee = factureService.addFacture(facture1);
+		assertEquals(facture1, persistee);
 	}
 	
 	@Test
-	public void testRetriveFacture() throws ParseException {
-		Facture ft = new Facture();
-		ft.setMontantFacture(20);
-		ft.setMontantRemise(2);
-		ft.setArchivee(false);
-	
-		
-		factureService.addFacture(ft);
-		log.info("facture ajouter avec success");
-		Facture ft1 = factureService.retrieveFacture(ft.getIdFacture());
-		
-		log.info("facture Retrive avec success");
+	public void retrieveAllFacturesTest() {
+		when(factureRepository.findAll()).thenReturn(Stream.of(facture1, facture2).collect(Collectors.toList()));
+		assertEquals(2, factureService.retrieveAllFactures().size());
 	}
-	
 	
 	@Test
-	public void testDeleteFacture() throws ParseException {
-		Facture ft = new Facture();
-		ft.setMontantFacture(20);
-		ft.setMontantRemise(2);
-		ft.setArchivee(false);
-	
-		
-		factureService.addFacture(ft);
-		log.info("facture ajouter avec success");
-		factureService.cancelFacture(ft.getIdFacture());
-		log.info("cancel Facture avec success");
+	public void retrieveFactureTest() {
+		when(factureRepository.findById(facture1.getIdFacture())).thenReturn(Optional.of(facture1));
+		assertEquals(facture1, factureService.retrieveFacture(facture1.getIdFacture()));
 	}
-	
-	
-	@Test
-	public void testRetrieveAllFacture() throws ParseException {
-		List<Facture> listFactures = factureService.retrieveAllFactures();
-		log.info("Nombre Factures: " + listFactures.size()+" \n");
-		for(int i=0;i<listFactures.size();i++){
-			log.info(""+listFactures.get(i).getMontantFacture());
-		}
-	}
-	
 	
 }
