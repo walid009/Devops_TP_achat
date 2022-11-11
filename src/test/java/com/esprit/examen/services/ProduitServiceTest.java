@@ -93,4 +93,16 @@ public class ProduitServiceTest {
         assertEquals(p1, ps.retrieveProduit(p1.getIdProduit()));
         System.out.println("Retrieved Product With success");
     }
+
+    //Modificataion d'un produit
+    @Test
+    public void UpdatePorduitTest() {
+        when(pr.save(p1)).thenReturn(p1);
+        assertNotNull(p1);
+        assertEquals(p1, ps.updateProduit(p1));
+
+        System.out.println("Updated Product With success");
+    }
+
+    
 }
