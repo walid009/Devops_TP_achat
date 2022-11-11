@@ -85,4 +85,12 @@ public class ProduitServiceTest {
         System.out.println("Deleted Product With success");
 
     }
+
+    //Recuperation d'un produit
+    @Test
+    public void retrieveProduitTest() {
+        when(pr.findById(p1.getIdProduit())).thenReturn(Optional.of(p1));
+        assertEquals(p1, ps.retrieveProduit(p1.getIdProduit()));
+        System.out.println("Retrieved Product With success");
+    }
 }
