@@ -1,18 +1,13 @@
 package com.esprit.examen.services;
 
-import static org.junit.Assert.assertNull;
-
 import java.text.ParseException;
 import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import com.esprit.examen.entities.Operateur;
-
 import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
@@ -30,7 +25,7 @@ public class OperateurServiceImplTest {
 		op.setPrenom("brahem");
 		op.setPassword("1234");
 		
-		assertNull(operateurService.addOperateur(op)); // JUnit assertion
+		operateurService.addOperateur(op);
 		log.info("operateur ajouter avec success");
 	}
 	
@@ -47,7 +42,7 @@ public class OperateurServiceImplTest {
 		op.setNom("med wajdi");
 		op.setPrenom("BRAHEM");
 		op.setPassword("123456789");
-		assertNull(operateurService.updateOperateur(op)); // JUnit assertion
+		operateurService.updateOperateur(op);
 		log.info("operateur modifier avec success");
 	}
 	
@@ -59,9 +54,9 @@ public class OperateurServiceImplTest {
 		op.setPrenom("brahem");
 		op.setPassword("1234");
 		
-		assertNull(operateurService.addOperateur(op));
+		operateurService.addOperateur(op);
 		log.info("operateur ajouter avec success");
-		operateurService.deleteOperateur(op.getIdOperateur()); // JUnit assertion
+		operateurService.deleteOperateur(op.getIdOperateur());
 		log.info("operateur supprimer avec success");
 	}
 	
