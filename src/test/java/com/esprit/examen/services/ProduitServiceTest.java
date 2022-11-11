@@ -75,4 +75,14 @@ public class ProduitServiceTest {
         assertEquals(p1, ps.addProduit(p1));
         System.out.println("Added Product With success");
     }
+
+    //Suppression d'un produit
+    @Test
+    public void DeleteProduitTest() {
+        pr.save(p1);
+        ps.deleteProduit(p1.getIdProduit());
+        verify(pr, times(1)).deleteById(p1.getIdProduit());
+        System.out.println("Deleted Product With success");
+
+    }
 }
