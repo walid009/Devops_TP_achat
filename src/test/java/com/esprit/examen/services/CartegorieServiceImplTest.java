@@ -101,7 +101,7 @@ public class CartegorieServiceImplTest {
 		List<CategorieProduit> listCategorie = new ArrayList<CategorieProduit>();
 		listCategorie.add(cat1);
 		listCategorie.add(cat2);
-		Assertions.assertNotEquals(0, listCategorie.size());
+		//Assertions.assertNotEquals(0, listCategorie.size());
 		log.info("Nombre categorie: " + listCategorie.size()+" \n");
 		for(int i=0;i<listCategorie.size();i++){
 			categorieProduitService.deleteCategorieProduit(listCategorie.get(i).getIdCategorieProduit());
