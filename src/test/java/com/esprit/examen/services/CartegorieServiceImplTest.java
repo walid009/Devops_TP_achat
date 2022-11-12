@@ -101,11 +101,12 @@ public class CartegorieServiceImplTest {
 		cat.setLibelleCategorie("categorieD");
 		assertNotNull(cat.getCodeCategorie());
 		assertNotNull(cat.getLibelleCategorie());
-		CategorieProduit catD = categorieProduitService.retrieveCategorieProduit(cat.getIdCategorieProduit());
+		long id= cat.getIdCategorieProduit();
+		CategorieProduit catD = categorieProduitService.retrieveCategorieProduit(id);
 		assertNotNull(catD.getCodeCategorie());
 		assertNotNull(catD.getLibelleCategorie());
 		categorieProduitService.deleteCategorieProduit(catD.getIdCategorieProduit());
-		log.info("categorie id : "+catD.getIdCategorieProduit()+" deleted successfuly");
+		log.info("categorie id : "+id+" deleted successfuly");
 	}
 	
 }
