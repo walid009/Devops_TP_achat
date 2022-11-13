@@ -12,7 +12,7 @@ services:
       MYSQL_PASSWORD: root
   db:
     container_name: mysqlCICD
-    image: iyadhbno/mysql
+    image: mysql
     ports:
       - 3309:3306
     environment:
