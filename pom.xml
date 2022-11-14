@@ -92,6 +92,7 @@
 <version>2.14.1</version>
 <configuration>
 <includes>
+<include>**/*Test.java</include>
 <include>**/*Mock.java</include>
 </includes>
 </configuration>
