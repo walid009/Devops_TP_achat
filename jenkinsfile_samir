@@ -48,7 +48,7 @@ pipeline{
 	        stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t absnader/springprojet .'
+                    sh 'docker build -t samir1996/springprojet .'
                 }
             }
         }
@@ -56,27 +56,14 @@ pipeline{
             steps{
                 script{
 		withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u absnader -p $dockerhubpwd docker.io'
+                   sh 'docker login -u samir1996 -p $dockerhubpwd docker.io'
 }
 
-                   sh 'docker push absnader/springprojet:latest'
+                   sh 'docker push samir1996/springprojet:latest'
                 }
             }
         }
-	stage('Jenkins mail Notification'){
-            steps{
-                
-                    emailext attachLog: true, body: 'This mail is from Jenkins, please check your logs', subject: 'Jenkins Notification', to: 'nader.abbassi@esprit.tn'
-                }
-            
-        }
-	stage('docker compose'){
-            steps{
-                
-                   sh 'docker-compose up -d'
-                }
-            
-        }
+
 
 }
 }
