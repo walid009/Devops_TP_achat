@@ -1,7 +1,5 @@
 package com.esprit.examen.controllers;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -15,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +29,6 @@ import com.esprit.examen.entities.CategorieFournisseur;
 import com.esprit.examen.entities.DetailFournisseur;
 import com.esprit.examen.entities.Facture;
 import com.esprit.examen.entities.Fournisseur;
-import com.esprit.examen.entities.Produit;
 import com.esprit.examen.entities.SecteurActivite;
 import com.esprit.examen.services.IFournisseurService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,38 +46,31 @@ public class FournisseurRestController {
 	@Autowired
 	IFournisseurService fournisseurService;
 
-	// http://localhost:8089/SpringMVC/fournisseur/retrieve-all-fournisseurs
 	@GetMapping("/retrieve-all-fournisseurs")
 	@ResponseBody
 	public List<Fournisseur> getFournisseurs() {
-		List<Fournisseur> fournisseurs = fournisseurService.retrieveAllFournisseurs();
-		return fournisseurs;
+		return fournisseurService.retrieveAllFournisseurs();
 	}
 
-	// http://localhost:8089/SpringMVC/fournisseur/retrieve-fournisseur/8
 	@GetMapping("/retrieve-fournisseur/{fournisseur-id}")
 	@ResponseBody
 	public Fournisseur retrieveFournisseur(@PathVariable("fournisseur-id") Long fournisseurId) {
 		return fournisseurService.retrieveFournisseur(fournisseurId);
 	}
 
-	// http://localhost:8089/SpringMVC/fournisseur/add-fournisseur
 	@PostMapping("/add-fournisseur")
 	@ResponseBody
 	public Fournisseur addFournisseur(@RequestBody FournisseurSonar f) {
-		Fournisseur fournisseur = fournisseurService.addFournisseur(new Fournisseur(f.getIdFournisseur(), f.getCode(), f.getLibelle(), 
+		return fournisseurService.addFournisseur(new Fournisseur(f.getIdFournisseur(), f.getCode(), f.getLibelle(), 
 				f.getCategorieFournisseur(), f.getFactures(), f.getSecteurActivites(), f.getDetailFournisseur()));
-		return fournisseur;
 	}
 
-	// http://localhost:8089/SpringMVC/fournisseur/remove-fournisseur/{fournisseur-id}
 	@DeleteMapping("/remove-fournisseur/{fournisseur-id}")
 	@ResponseBody
 	public void removeFournisseur(@PathVariable("fournisseur-id") Long fournisseurId) {
 		fournisseurService.deleteFournisseur(fournisseurId);
 	}
 
-	// http://localhost:8089/SpringMVC/fournisseur/modify-fournisseur
 	@PutMapping("/modify-fournisseur")
 	@ResponseBody
 	public Fournisseur modifyFournisseur(@RequestBody FournisseurSonar fournisseur) {
@@ -91,7 +79,6 @@ public class FournisseurRestController {
 				);
 	}
 
-	// http://localhost:8089/SpringMVC/fournisseur/assignSecteurActiviteToFournisseur/1/5
 		@PutMapping(value = "/assignSecteurActiviteToFournisseur/{idSecteurActivite}/{idFournisseur}")
 		public void assignProduitToStock(@PathVariable("idSecteurActivite") Long idSecteurActivite, @PathVariable("idFournisseur") Long idFournisseur) {
 			fournisseurService.assignSecteurActiviteToFournisseur(idSecteurActivite, idFournisseur);

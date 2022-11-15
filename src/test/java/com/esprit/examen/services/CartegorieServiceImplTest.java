@@ -109,17 +109,5 @@ public class CartegorieServiceImplTest {
 		categorieProduitService.deleteCategorieProduit(catD.getIdCategorieProduit());
 		log.info("categorie id : "+id+" deleted successfuly");
 	}
-	
-	@Test
-	@Order(6)
-	public void testDeleteAllCategorie() throws ParseException {
-		List<CategorieProduit> listCategorie = categorieProduitService.retrieveAllCategorieProduits();
-		Assertions.assertNotEquals(0, listCategorie.size());
-		log.info("Nombre categorie: " + listCategorie.size()+" \n");
-		for(int i=0;i<listCategorie.size();i++){
-			categorieProduitService.deleteCategorieProduit(listCategorie.get(i).getIdCategorieProduit());
-			log.info("==>"+listCategorie.get(i).getLibelleCategorie()+" delete successfully");
-		}
-	}
-	
+		
 }
