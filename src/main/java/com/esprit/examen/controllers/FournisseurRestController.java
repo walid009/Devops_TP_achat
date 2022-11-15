@@ -1,6 +1,23 @@
 package com.esprit.examen.controllers;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +28,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.esprit.examen.entities.CategorieFournisseur;
+import com.esprit.examen.entities.DetailFournisseur;
+import com.esprit.examen.entities.Facture;
 import com.esprit.examen.entities.Fournisseur;
+import com.esprit.examen.entities.Produit;
+import com.esprit.examen.entities.SecteurActivite;
 import com.esprit.examen.services.IFournisseurService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.Api;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @RestController
@@ -43,8 +69,9 @@ public class FournisseurRestController {
 	// http://localhost:8089/SpringMVC/fournisseur/add-fournisseur
 	@PostMapping("/add-fournisseur")
 	@ResponseBody
-	public Fournisseur addFournisseur(@RequestBody Fournisseur f) {
-		Fournisseur fournisseur = fournisseurService.addFournisseur(f);
+	public Fournisseur addFournisseur(@RequestBody FournisseurSonar f) {
+		Fournisseur fournisseur = fournisseurService.addFournisseur(new Fournisseur(f.getIdFournisseur(), f.getCode(), f.getLibelle(), 
+				f.getCategorieFournisseur(), f.getFactures(), f.getSecteurActivites(), f.getDetailFournisseur()));
 		return fournisseur;
 	}
 
@@ -58,8 +85,10 @@ public class FournisseurRestController {
 	// http://localhost:8089/SpringMVC/fournisseur/modify-fournisseur
 	@PutMapping("/modify-fournisseur")
 	@ResponseBody
-	public Fournisseur modifyFournisseur(@RequestBody Fournisseur fournisseur) {
-		return fournisseurService.updateFournisseur(fournisseur);
+	public Fournisseur modifyFournisseur(@RequestBody FournisseurSonar fournisseur) {
+		return fournisseurService.updateFournisseur(new Fournisseur(fournisseur.getIdFournisseur(), fournisseur.getCode(), fournisseur.getLibelle(), 
+				fournisseur.getCategorieFournisseur(), fournisseur.getFactures(), fournisseur.getSecteurActivites(), fournisseur.getDetailFournisseur())
+				);
 	}
 
 	// http://localhost:8089/SpringMVC/fournisseur/assignSecteurActiviteToFournisseur/1/5
@@ -69,3 +98,30 @@ public class FournisseurRestController {
 		}
 
 }
+
+
+@Getter
+@Setter
+class FournisseurSonar {
+
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idFournisseur;
+	private String code;
+	private String libelle;
+	@Enumerated(EnumType.STRING)
+	private CategorieFournisseur  categorieFournisseur;
+	@OneToMany(mappedBy="fournisseur")
+	@JsonIgnore
+	private Set<Facture> factures;
+    @ManyToMany
+    @JsonIgnore
+    private Set<SecteurActivite> secteurActivites;
+    @OneToOne(cascade= CascadeType.ALL,fetch=FetchType.EAGER)
+    private DetailFournisseur detailFournisseur;
+    
+
+	
+}
+
