@@ -1,44 +1,53 @@
 package com.esprit.examen.services;
 
-import org.junit.jupiter.api.extension.ExtendWith;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.esprit.examen.entities.CategorieProduit;
+import com.esprit.examen.entities.Produit;
 import com.esprit.examen.repositories.CategorieProduitRepository;
-import com.esprit.examen.services.CategorieProduitServiceImpl;
 
-import org.junit.jupiter.api.Test;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.Optional;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-
-
-//@Slf4j
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@Slf4j
 @ExtendWith(MockitoExtension.class)
 public class CategorieServiceImplMock {
-	
-	@InjectMocks
-    CategorieProduitServiceImpl  categorieProduitServiceImpl ;
 
-    @Mock
-    CategorieProduitRepository categorieProduitRepository;
+	@Autowired
+	CategorieProduitServiceImpl categorieProduitServiceImpl;
+	@MockBean
+	CategorieProduitRepository categorieProduitRepository;
 
-
-    @Test
-    public void addProduitTest(){
-    	CategorieProduit cat = new CategorieProduit("cat1", "categorie 1");
-        when(categorieProduitRepository.save(cat)).thenReturn(cat);
-        assertEquals(cat, categorieProduitServiceImpl.addCategorieProduit(cat));
-    }
-	/*@Test
+	@Test
 	@Order(1)
 	public void saveCategorieTest() {
 		CategorieProduit cat = new CategorieProduit("cat1", "categorie 1");
@@ -72,20 +81,20 @@ public class CategorieServiceImplMock {
 		for(int i=0;i<listCategorie.size();i++){
 			log.info("==>"+listCategorie.get(i).getLibelleCategorie());
 		}
-	}*/
+	}
 
-	/*@Test
-	//@Order(4)
-    public void deleteCategorieTest(){
+	@Test
+	@Order(4)
+	public void deleteCategorierTest() {
 		CategorieProduit cat = new CategorieProduit("cat4", "categorie 4");
-		//assertNotNull(cat.getCodeCategorie());
-		//assertNotNull(cat.getLibelleCategorie());
+		assertNotNull(cat.getCodeCategorie());
+		assertNotNull(cat.getLibelleCategorie());
 		categorieProduitServiceImpl.deleteCategorieProduit(cat.getIdCategorieProduit());
-        verify(categorieProduitRepository, times(1)).deleteById(cat.getIdCategorieProduit());
-        //log.info("categorie supprimer avec success");
-    }*/
+		verify(categorieProduitRepository, times(1)).deleteById(cat.getIdCategorieProduit());
+		log.info("categorie supprimer avec success");
+	}
 	
-	/*@Test
+	@Test
 	@Order(5)
 	public void deleteAllCategorierTest() {
 		Mockito.when(categorieProduitRepository.findAll()).thenReturn(Stream
@@ -97,5 +106,5 @@ public class CategorieServiceImplMock {
 			categorieProduitServiceImpl.deleteCategorieProduit(listCategorie.get(i).getIdCategorieProduit());;
 			log.info("==> categorie "+listCategorie.get(i).getLibelleCategorie()+" deleted successfulyy ");
 		}
-	}*/
+	}
 }
