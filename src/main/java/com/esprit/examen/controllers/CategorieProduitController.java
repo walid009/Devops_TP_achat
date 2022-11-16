@@ -1,12 +1,9 @@
 package com.esprit.examen.controllers;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import javax.persistence.OneToMany;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,22 +33,18 @@ public class CategorieProduitController {
 	@Autowired
 	ICategorieProduitService categorieProduitService;
 	
-	// http://localhost:8089/SpringMVC/categorieProduit/retrieve-all-categorieProduit
 	@GetMapping("/retrieve-all-categorieProduit")
 	@ResponseBody
 	public List<CategorieProduit> getCategorieProduit() {
-		List<CategorieProduit> list = categorieProduitService.retrieveAllCategorieProduits();
-		return list;
+		return categorieProduitService.retrieveAllCategorieProduits();
 	}
 
-	// http://localhost:8089/SpringMVC/categorieProduit/retrieve-categorieProduit/8
 	@GetMapping("/retrieve-categorieProduit/{categorieProduit-id}")
 	@ResponseBody
 	public CategorieProduit retrieveCategorieProduit(@PathVariable("categorieProduit-id") Long categorieProduitId) {
 		return categorieProduitService.retrieveCategorieProduit(categorieProduitId);
 	}
 
-	// http://localhost:8089/SpringMVC/categorieProduit/add-categorieProduit
 	@PostMapping("/add-categorieProduit")
 	@ResponseBody
 	public CategorieProduit addCategorieProduit(@RequestBody CategorieWalidModel  categorieWalidModel ) {
@@ -59,18 +52,15 @@ public class CategorieProduitController {
 		cat.setCodeCategorie(categorieWalidModel.getCodeCategorie());
 		cat.setLibelleCategorie(categorieWalidModel.getLibelleCategorie());
 		categorieProduitService.addCategorieProduit(cat);
-		CategorieProduit categorieProduit = categorieProduitService.addCategorieProduit(cat);
-		return categorieProduit;
+		return categorieProduitService.addCategorieProduit(cat);
 	}
 
-	// http://localhost:8089/SpringMVC/categorieProduit/remove-categorieProduit/{categorieProduit-id}
 	@DeleteMapping("/remove-categorieProduit/{categorieProduit-id}")
 	@ResponseBody
 	public void removeCategorieProduit(@PathVariable("categorieProduit-id") Long categorieProduitId) {
 		categorieProduitService.deleteCategorieProduit(categorieProduitId);
 	}
 
-	// http://localhost:8089/SpringMVC/categorieProduit/modify-categorieProduit
 	@PutMapping("/modify-categorieProduit")
 	@ResponseBody
 	public CategorieProduit modifyCategorieProduit(@RequestBody CategorieWalidModel  categorieWalidModel) {
