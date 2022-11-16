@@ -103,14 +103,5 @@ public class ProduitServiceTest {
 
         System.out.println("Updated Product With success");
     }
-
-
-    //affectation d'un produit au stock
-    @Test
-    public void assignProduitToStockTest() {
-        when(SR.findById(S.getIdStock())).thenReturn(Optional.of(S));
-        when(pr.findById(p1.getIdProduit())).thenReturn(Optional.of(p1));
-
-        System.out.println("Assigned Product To Stock With success");
-    }
+    
 }
