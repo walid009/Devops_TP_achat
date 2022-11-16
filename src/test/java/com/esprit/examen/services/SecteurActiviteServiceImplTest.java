@@ -76,11 +76,28 @@ public class SecteurActiviteServiceImplTest {
 	@Order(4)
 	public void testDeletesecteurActivite() throws ParseException {
 		SecteurActivite sec = new SecteurActivite();
-		sec.setCodeSecteurActivite("code 3");
-		sec.setLibelleSecteurActivite("libelle 3");
+		sec.setCodeSecteurActivite("code 4");
+		sec.setLibelleSecteurActivite("libelle 4");
 		secteurActiviteService.addSecteurActivite(sec);
 		secteurActiviteService.deleteSecteurActivite(sec.getIdSecteurActivite());
 		log.info("secteur supprimer avec success");
+	}
+	@Test
+	@Order(5)
+	public void testFindAndDeleteByIdSecteurActivite() throws ParseException {
+	
+		SecteurActivite sec = new SecteurActivite();
+		sec.setCodeSecteurActivite("code 5");
+		sec.setLibelleSecteurActivite("categorie 5");
+		assertNotNull(sec.getCodeSecteurActivite());
+		assertNotNull(sec.getLibelleSecteurActivite());
+		SecteurActivite x = secteurActiviteService.addSecteurActivite(sec);
+		SecteurActivite secD = secteurActiviteService.retrieveSecteurActivite(x.getIdSecteurActivite());
+		assertNotNull(secD.getCodeSecteurActivite());
+		assertNotNull(secD.getLibelleSecteurActivite());
+		long id= secD.getIdSecteurActivite();
+		secteurActiviteService.deleteSecteurActivite(secD.getIdSecteurActivite());
+		log.info("SecteurActivite id : "+id+" deleted successfuly");
 	}
 	
 	

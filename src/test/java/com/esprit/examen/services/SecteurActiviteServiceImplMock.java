@@ -52,7 +52,7 @@ public class SecteurActiviteServiceImplMock {
 	@Test
 	@Order(1)
 	public void saveSecteurActiviteTest() {
-		SecteurActivite sec = new SecteurActivite("cat1", "categorie 1");
+		SecteurActivite sec = new SecteurActivite("sec1", "categorie 1");
 		Mockito.when(secteurActiviteRepository.save(sec)).thenReturn(sec);
 		assertEquals(sec, secteurActiviteServiceImpl.addSecteurActivite(sec));
 		log.info("Secteur Activity ajouter avec success");
@@ -61,11 +61,11 @@ public class SecteurActiviteServiceImplMock {
 	@Test
 	@Order(2)
 	public void updateSecteurActiviteTest() {
-		SecteurActivite sec = new SecteurActivite("cat2", "categorie 2");
+		SecteurActivite sec = new SecteurActivite("sec2", "categorie 2");
 		Mockito.when(secteurActiviteRepository.save(sec)).thenReturn(sec);
 		assertEquals(sec, secteurActiviteServiceImpl.addSecteurActivite(sec));
 		log.info("secteurActivite ajouter avec success");
-		sec.setCodeSecteurActivite("CAT5");
+		sec.setCodeSecteurActivite("sec5");
 		sec.setLibelleSecteurActivite("categorie 5");
 		Mockito.when(secteurActiviteRepository.save(sec)).thenReturn(sec);
 		assertEquals(sec, secteurActiviteServiceImpl.updateSecteurActivite(sec));
@@ -76,7 +76,7 @@ public class SecteurActiviteServiceImplMock {
 	@Order(3)
 	public void getAllSecteurActiviteTest() {
 		Mockito.when(secteurActiviteRepository.findAll()).thenReturn(Stream
-				.of(new SecteurActivite("cat2", "categorie 2"), new SecteurActivite("cat2", "categorie 3")).collect(Collectors.toList()));
+				.of(new SecteurActivite("sec2", "categorie 2"), new SecteurActivite("sec3", "categorie 3")).collect(Collectors.toList()));
 		assertEquals(2, secteurActiviteServiceImpl.retrieveAllSecteurActivite().size());
 		List<SecteurActivite> listSecteurActivite = secteurActiviteServiceImpl.retrieveAllSecteurActivite();
 		log.info("==>size:"+listSecteurActivite.size());
@@ -88,25 +88,25 @@ public class SecteurActiviteServiceImplMock {
 	@Test
 	@Order(4)
 	public void deleteSecteurActiviteTest() {
-		SecteurActivite sec = new SecteurActivite("cat4", "categorie 4");
+		SecteurActivite sec = new SecteurActivite("sec4", "categorie 4");
 		assertNotNull(sec.getCodeSecteurActivite());
 		assertNotNull(sec.getLibelleSecteurActivite());
 		secteurActiviteServiceImpl.deleteSecteurActivite(sec.getIdSecteurActivite());
 		verify(secteurActiviteRepository, times(1)).deleteById(sec.getIdSecteurActivite());
-		log.info("categorie supprimer avec success");
+		log.info("secteurActivite supprimer avec success");
 	}
 	
 	@Test
 	@Order(5)
 	public void deleteAllSecteurActiviteTest() {
 		Mockito.when(secteurActiviteRepository.findAll()).thenReturn(Stream
-				.of(new SecteurActivite("cat2", "categorie 2"), new SecteurActivite("cat2", "categorie 3")).collect(Collectors.toList()));
+				.of(new SecteurActivite("sec2", "categorie 2"), new SecteurActivite("sec3", "categorie 3")).collect(Collectors.toList()));
 		assertEquals(2, secteurActiviteServiceImpl.retrieveAllSecteurActivite().size());
 		List<SecteurActivite> listSecteurActivite = secteurActiviteServiceImpl.retrieveAllSecteurActivite();
 		log.info("==>size:"+listSecteurActivite.size());
 		for(int i=0;i<listSecteurActivite.size();i++){
 			secteurActiviteServiceImpl.deleteSecteurActivite(listSecteurActivite.get(i).getIdSecteurActivite());;
-			log.info("==> categorie "+listSecteurActivite.get(i).getLibelleSecteurActivite()+" deleted successfulyy ");
+			log.info("==> secteurActivite "+listSecteurActivite.get(i).getLibelleSecteurActivite()+" deleted successfulyy ");
 		}
 	}
 }

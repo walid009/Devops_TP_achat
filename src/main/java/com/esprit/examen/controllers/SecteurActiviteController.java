@@ -1,13 +1,26 @@
-package com.esprit.examen.controllers;
+	package com.esprit.examen.controllers;
 
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import com.esprit.examen.entities.Fournisseur;
+import com.esprit.examen.entities.Produit;
 import com.esprit.examen.entities.SecteurActivite;
 import com.esprit.examen.services.ISecteurActiviteService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.Api;
+import lombok.Getter;
+import lombok.Setter;
 
 @RestController
 @Api(tags = "Gestion des secteurs activites")
@@ -36,9 +49,12 @@ public class SecteurActiviteController {
 	// http://localhost:8089/SpringMVC/secteurActivite/add-secteurActivite
 	@PostMapping("/add-secteurActivite")
 	@ResponseBody
-	public SecteurActivite addSecteurActivite(@RequestBody SecteurActivite sa) {
-		SecteurActivite secteurActivite = secteurActiviteService.addSecteurActivite(sa);
-		return secteurActivite;
+	public SecteurActivite addSecteurActivite(@RequestBody SecteurActiviteCategorieAchrefModel secteurActiviteCategorieAchrefModel) {
+		SecteurActivite sec = new SecteurActivite();
+		sec.setCodeSecteurActivite(secteurActiviteCategorieAchrefModel.getCodeSecteurActivite());
+		sec.setLibelleSecteurActivite(secteurActiviteCategorieAchrefModel.getLibelleSecteurActivite());
+		secteurActiviteService.addSecteurActivite(sec);
+		return secteurActiviteService.addSecteurActivite(sec);
 	}
 
 	// http://localhost:8089/SpringMVC/secteurActivite/remove-secteurActivite/{secteurActivite-id}
@@ -51,9 +67,28 @@ public class SecteurActiviteController {
 	// http://localhost:8089/SpringMVC/secteurActivite/modify-secteurActivite
 	@PutMapping("/modify-secteurActivite")
 	@ResponseBody
-	public SecteurActivite modifySecteurActivite(@RequestBody SecteurActivite secteurActivite) {
-		return secteurActiviteService.updateSecteurActivite(secteurActivite);
+	public SecteurActivite modifySecteurActivite(@RequestBody  SecteurActiviteCategorieAchrefModel secteurActiviteCategorieAchrefModel) {
+		return secteurActiviteService.updateSecteurActivite(new SecteurActivite(secteurActiviteCategorieAchrefModel.getIdSecteurActivite(),
+				secteurActiviteCategorieAchrefModel.getCodeSecteurActivite(), secteurActiviteCategorieAchrefModel.getLibelleSecteurActivite(), secteurActiviteCategorieAchrefModel.getFournisseurs()));
 	}
 
 	
+}
+
+
+@Getter
+@Setter
+class SecteurActiviteCategorieAchrefModel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idSecteurActivite;
+	private String codeSecteurActivite;
+	private String libelleSecteurActivite;
+	@ManyToMany(mappedBy="secteurActivites")
+	@JsonIgnore
+	private Set<Fournisseur> fournisseurs;
 }
