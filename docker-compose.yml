@@ -15,9 +15,10 @@ services:
   app:
     depends_on:
       - mysqldb
+    image: 'walid009/docker-spring-bot-tpachat-pipeline-jenkins:latest'  
     build:
-      context: "./"
-      dockerfile: "Dockerfile"
+      context: .
+      
     restart: on-failure
     ports:
       - 8089:8089
