@@ -33,7 +33,7 @@ public class FactureServiceImplMockitoTest {
 
 
         //then
-        assertNotNull(savedfac.getIdFacture());
+        assertNull(savedfac.getIdFacture());
 
 
     }
