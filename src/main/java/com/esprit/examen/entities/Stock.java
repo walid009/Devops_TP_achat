@@ -17,6 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Stock implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,6 +29,7 @@ public class Stock implements Serializable {
 	@OneToMany(mappedBy = "stock")
 	@JsonIgnore
 	private Set<Produit> produits;
+	
 	public Stock(String libelleStock, Integer qte, Integer qteMin) {
 		super();
 		this.libelleStock = libelleStock;
@@ -44,19 +46,8 @@ public class Stock implements Serializable {
 	}
 	
 	public Stock() {
-
 	}
+
 	
-	public String getLibelleStock()
-
-	{
-		return this.libelleStock;
-	}
-	
-	public Long getIdStock()
-
-	{
-		return this.idStock;
-	}
 
 }
