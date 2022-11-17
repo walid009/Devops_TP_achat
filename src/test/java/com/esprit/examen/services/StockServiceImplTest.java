@@ -72,7 +72,7 @@ public class StockServiceImplTest {
 	{
 		Stock st = new Stock("testtest",10,100);
 		Stock stdb = ss.addStock(st);
-		Stock st1 = new Stock(stdb.getIdStock(),"heys",50,100);
+		Stock st1 = new Stock("heys",50,100);
 		Stock stdb1 = ss.updateStock(st1);
 		assertEquals(stdb.getIdStock(),stdb1.getIdStock());
 		assertNotEquals(stdb1.getLibelleStock(), stdb.getLibelleStock());
