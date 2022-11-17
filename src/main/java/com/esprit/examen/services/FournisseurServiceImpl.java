@@ -30,13 +30,13 @@ public class FournisseurServiceImpl implements IFournisseurService {
 	SecteurActiviteRepository secteurActiviteRepository;
 
 	@Override
-	public List<Fournisseur> retrieveAllFournisseurs() {
-		List<Fournisseur> fournisseurs = (List<Fournisseur>) fournisseurRepository.findAll();
-		for (Fournisseur fournisseur : fournisseurs) {
-			log.info(" fournisseur : " + fournisseur);
+		public List<Fournisseur> retrieveAllFournisseurs() {
+			List<Fournisseur> fournisseurs =  fournisseurRepository.findAll();
+			for (Fournisseur fournisseur : fournisseurs) {
+				log.info(" fournisseur : " + fournisseur);
+			}
+			return fournisseurs;
 		}
-		return fournisseurs;
-	}
 
 
 	public Fournisseur addFournisseur(Fournisseur f /*Master*/) {
@@ -70,18 +70,17 @@ public class FournisseurServiceImpl implements IFournisseurService {
 	@Override
 	public Fournisseur retrieveFournisseur(Long fournisseurId) {
 
-		Fournisseur fournisseur = fournisseurRepository.findById(fournisseurId).orElse(null);
-		return fournisseur;
+		return fournisseurRepository.findById(fournisseurId).orElse(null);
 	}
 
 	@Override
 	public void assignSecteurActiviteToFournisseur(Long idSecteurActivite, Long idFournisseur) {
-		Fournisseur fournisseur = fournisseurRepository.findById(idFournisseur).orElse(null);
-		SecteurActivite secteurActivite = secteurActiviteRepository.findById(idSecteurActivite).orElse(null);
-        fournisseur.getSecteurActivites().add(secteurActivite);
-        fournisseurRepository.save(fournisseur);
-		
-		
+		Fournisseur fournisseur = fournisseurRepository.findById(idFournisseur).orElse(new Fournisseur());
+		SecteurActivite secteurActivite = secteurActiviteRepository.findById(idSecteurActivite).orElse(new SecteurActivite());
+		fournisseur.getSecteurActivites().add(secteurActivite);
+		fournisseurRepository.save(fournisseur);
+
+
 	}
 
 	
