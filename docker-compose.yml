@@ -15,10 +15,9 @@ services:
   app:
     depends_on:
       - mysqldb
-    image: 'tirariachrefesprit/dockertpachat-pipeline:latest'  
     build:
-      context: .
-      
+      context: "./"
+      dockerfile: "Dockerfile"
     restart: on-failure
     ports:
       - 8089:8089
