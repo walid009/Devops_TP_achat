@@ -1,4 +1,4 @@
-package tn.esprit.rh.achat;
+/*package tn.esprit.rh.achat;
 
 
 import org.junit.Test;
@@ -41,3 +41,4 @@ public class CategorieProduitServiceImplTest {
 
 
 }
+*/
