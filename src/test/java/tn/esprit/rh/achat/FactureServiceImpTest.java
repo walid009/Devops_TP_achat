@@ -33,7 +33,7 @@ IFactureService factureservice;
     @Test
     public void retrieveAllStocksTest() {
         List<Facture> facs = (List<Facture>) facturerepository.findAll();
-        assertNull(facs);
+        assertNotNull(facs);
     }
       @Test
     public void deletefactureTest() {
