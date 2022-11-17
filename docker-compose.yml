@@ -15,7 +15,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    image: 'tirariachrefesprit/dockertpachat-pipeline:latest'  
+    image: 'tirariachrefesprit/dockertpachat-pipeline:94'  
     build:
       context: .
       
