@@ -15,7 +15,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    image: 'walid009/docker-spring-bot-tpachat-pipeline-jenkins:latest'  
+    image: 'tirariachrefesprit/dockertpachat-pipeline:latest'  
     build:
       context: .
       
